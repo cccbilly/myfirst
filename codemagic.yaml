@@ -1,10 +1,21 @@
-
 workflows:
-  ios-workflow:
-    name: iOS Build
-    max_build_duration: 60
-    instance_type: mac_mini_m1
+  web-game-workflow:
+    name: Web Game Build Check
+    max_build_duration: 10
+    instance_type: mac_mini_m2
     scripts:
-      - name: Build App
+      - name: Validate Index File
         script: |
-          echo "Building..."
+          echo "Checking if index.html exists..."
+          if [ -f "index.html" ]; then
+            echo "SUCCESS: index.html found!"
+          else
+            echo "ERROR: index.html missing!"
+            exit 1
+          fi
+      - name: Package App Artifact
+        script: |
+          mkdir -p build
+          zip -r build/game-app.zip index.html
+    artifacts:
+      - build/*.zip
