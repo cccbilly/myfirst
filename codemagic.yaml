@@ -1,21 +1,16 @@
 workflows:
-  web-game-workflow:
-    name: Web Game Build Check
-    max_build_duration: 10
+  flutter-ios-workflow:
+    name: Flutter iOS Shooter Build
     instance_type: mac_mini_m2
+    max_build_duration: 30
+    environment:
+      flutter: stable
+      xcode: latest
     scripts:
-      - name: Validate Index File
+      - name: Get Flutter Packages
+        script: flutter pub get
+      - name: Build iOS No-Sign
         script: |
-          echo "Checking if index.html exists..."
-          if [ -f "index.html" ]; then
-            echo "SUCCESS: index.html found!"
-          else
-            echo "ERROR: index.html missing!"
-            exit 1
-          fi
-      - name: Package App Artifact
-        script: |
-          mkdir -p build
-          zip -r build/game-app.zip index.html
+          flutter build ios --release --no-codesign
     artifacts:
-      - build/*.zip
+      - build/ios/iphoneos/*.app
