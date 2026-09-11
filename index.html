@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜數字小遊戲</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #f0f2f5; }
+        .card { background: white; padding: 30px; border-radius: 12px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        input { padding: 10px; font-size: 16px; width: 80px; text-align: center; margin-right: 8px; }
+        button { padding: 10px 20px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; }
+        #message { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🎯 猜數字遊戲 (1-100)</h1>
+        <input type="number" id="guessInput" min="1" max="100">
+        <button onclick="checkGuess()">猜！</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const target = Math.floor(Math.random() * 100) + 1;
+        function checkGuess() {
+            const val = Number(document.getElementById('guessInput').value);
+            const msg = document.getElementById('message');
+            if (!val) { msg.innerText = '請輸入數字！'; return; }
+            if (val === target) { msg.innerText = '🎉 恭喜你答對了！'; msg.style.color = 'green'; }
+            else if (val < target) { msg.innerText = '太小了，再試一次！'; msg.style.color = 'orange'; }
+            else { msg.innerText = '太大了，再試一次！'; msg.style.color = 'red'; }
+        }
+    </script>
+</body>
+</html>
