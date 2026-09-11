@@ -1,0 +1,5 @@
+Bash
+
+git add codemagic.yaml
+git commit -m "Add codemagic.yaml"
+git push
