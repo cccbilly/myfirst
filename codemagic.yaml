@@ -7,9 +7,13 @@ workflows:
       flutter: stable
       xcode: latest
     scripts:
-      - name: Recreate Flutter iOS Project
+      - name: Clean Old iOS Directory
         script: |
-          # 自動生成相容最新 Xcode 的原生 iOS 專案目錄
+          # 強制刪除原本壞掉的 ios 資料夾
+          rm -rf ios
+      - name: Recreate Clean Flutter iOS Project
+        script: |
+          # 重新乾淨生成全新的 iOS 專案結構
           flutter create --platforms=ios .
       - name: Get Flutter Packages
         script: flutter pub get
