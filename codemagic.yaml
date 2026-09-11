@@ -6,6 +6,10 @@ workflows:
     environment:
       flutter: stable
     scripts:
+      - name: Clean and Enable Web
+        script: |
+          # 補齊 Web 平台的必要配置檔
+          flutter create . --platforms web
       - name: Get Flutter Packages
         script: flutter pub get
       - name: Build Flutter Web App
